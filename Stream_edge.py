@@ -31,7 +31,7 @@ def do_gif(folder_path, n_img):
 # -------------------------------------------------------------- #
 
 
-def do_plot(edge_list, window, time, folder_path, discon = False):
+def do_edge_plot(edge_list, window, time, folder_path, discon = False):
   
   nodes = ['a', 'b', 'c', 'd', 'e', ]
 
