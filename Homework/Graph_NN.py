@@ -43,6 +43,7 @@ class GAT_Network(nn.Module):
 
         torch.manual_seed(42)
         self.dataset = dataset
+        
         self.conv1 = GATConv(dataset.num_features, 256)
         self.conv2 = GATConv(256, 16)
         self.out = nn.Linear(16, dataset.num_classes)
