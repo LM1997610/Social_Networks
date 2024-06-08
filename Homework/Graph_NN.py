@@ -1,11 +1,11 @@
 
+import matplotlib.pyplot as plt
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
 from torch_geometric.nn import GCNConv, SAGEConv, GATConv # GraphConv, SplineConv
-
-import matplotlib.pyplot as plt
 
 class GConv_Network(torch.nn.Module):
 
@@ -20,19 +20,17 @@ class GConv_Network(torch.nn.Module):
         self.out = nn.Linear(16, dataset.num_classes)
 
     def forward(self, data):
+        
         x, edge_index = data.x, data.edge_index
 
-        # First Message Passing Layer (Transformation)
         x = self.conv1(x, edge_index)
         x = x.tanh()
         x = F.dropout(x, p=0.5, training=self.training)
 
-        # Second Message Passing Layer
         x = self.conv2(x, edge_index)
         x = x.tanh()
         x = F.dropout(x, p=0.5, training=self.training)
 
-        # Output layer 
         x = F.softmax(self.out(x), dim=1)
         return x
     
@@ -49,19 +47,17 @@ class GAT_Network(nn.Module):
         self.out = nn.Linear(16, dataset.num_classes)
 
     def forward(self, data):
+        
         x, edge_index = data.x, data.edge_index
 
-        # First Message Passing Layer (Transformation)
         x = self.conv1(x, edge_index)
         x = x.tanh()
         x = F.dropout(x, p=0.5, training=self.training)
 
-        # Second Message Passing Layer
         x = self.conv2(x, edge_index)
         x = x.tanh()
         x = F.dropout(x, p=0.5, training=self.training)
-
-        # Output layer 
+ 
         x = F.softmax(self.out(x), dim=1)
         return x
 
@@ -78,25 +74,20 @@ class SAGE_Network(torch.nn.Module):
         self.out = nn.Linear(16, dataset.num_classes)
 
     def forward(self, data):
+        
         x, edge_index = data.x, data.edge_index
 
-        # First Message Passing Layer (Transformation)
         x = self.conv1(x, edge_index)
         x = x.tanh()
         x = F.dropout(x, p=0.5, training=self.training)
 
-        # Second Message Passing Layer
         x = self.conv2(x, edge_index)
         x = x.tanh()
         x = F.dropout(x, p=0.5, training=self.training)
 
-        # Output layer 
         x = F.softmax(self.out(x), dim=1)
         return x
     
-
-
-
 def eval_node_classifier(model, graph, mask, is_test = False):
 
     model.eval()
