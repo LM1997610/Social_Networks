@@ -1,8 +1,8 @@
-import matplotlib.pyplot as plt
+ import matplotlib.pyplot as plt
 
 
 
-def visualize_degree_distrib(degree_distrib):
+def visualize_degree_distrib(nodes, degree_distrib):
   fig, (ax1, ax2) = plt.subplots(1, 2,figsize=(12, 3))
   
   ax1.plot(nodes, degree_distrib, '-', linewidth=2.5)
