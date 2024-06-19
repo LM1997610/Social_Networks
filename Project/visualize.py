@@ -34,7 +34,7 @@ def show_length_of_paths(sorted_counter):
 
   plt.grid()
   plt.xticks(keys)
-  plt.xlabel("\n Lenght of Paths \n")
-  plt.ylabel("\n N of Articles")
+  plt.xlabel("Length of Paths \n", fontsize= 14)
+  plt.ylabel("N. of Articles \n", fontsize= 14)
   plt.bar(keys[-1], values[-1], color='orange')
   plt.show()
