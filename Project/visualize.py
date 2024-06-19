@@ -24,11 +24,11 @@ def visualize_degree_distrib(nodes, degree_distrib):
 
 def show_length_of_paths(sorted_counter):
 
-  sorted_counter["path\nnot\nfound"] = sorted_counter.pop(0)
-  sorted_counter = {str(key): value for key, value in sorted_counter.items()}
-
-  keys = list(sorted_counter.keys())
-  values = list(sorted_counter.values())
+  new_dict = {str(key): value for key, value in sorted_counter.items()}
+  new_dict["path\nnot\nfound"] = new_dict.pop('0')
+  
+  keys = list(new_dict.keys())
+  values = list(new_dict.values())
 
   plt.bar(keys, values)
 
