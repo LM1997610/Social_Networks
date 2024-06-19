@@ -20,3 +20,19 @@ def visualize_degree_distrib(nodes, degree_distrib):
   
   plt.subplots_adjust(wspace=0.3)
   plt.show()
+
+
+def show_length_of_paths(sorted_counter):
+
+  sorted_counter["path\nnot\nfound"] = sorted_counter.pop(0)
+  sorted_counter = {str(key): value for key, value in sorted_counter.items()}
+
+  keys = list(sorted_counter.keys())
+  values = list(sorted_counter.values())
+
+  plt.bar(keys, values)
+
+  plt.grid()
+  plt.xticks(keys)
+  plt.bar(keys[-1], values[-1], color='orange')
+  plt.show()
