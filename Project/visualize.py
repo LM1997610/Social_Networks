@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 from tabulate import tabulate
 
-def topic_distrib_plot(counted_topics, output_directory='plot_folder/'):
+def topic_distrib_plot(counted_topics, output_directory='plot_folder'):
 
   sorted_data = dict(sorted(counted_topics.items(), key=lambda item: item[1]))
 
@@ -24,10 +24,10 @@ def topic_distrib_plot(counted_topics, output_directory='plot_folder/'):
   if not os.path.exists(output_directory):
     os.makedirs(output_directory)
 
-  plt.savefig(output_directory + "topic_distrib.png")
+  plt.savefig(output_directory + "/topic_distrib.png")
   plt.show()
   
-def visualize_degree_distrib(nodes, degree_distrib, output_directory = 'plot_folder/'):
+def visualize_degree_distrib(nodes, degree_distrib, output_directory = 'plot_folder'):
   fig, (ax1, ax2) = plt.subplots(1, 2,figsize=(12, 3))
   
   ax1.plot(nodes, degree_distrib, '-', linewidth=2.5)
@@ -49,11 +49,11 @@ def visualize_degree_distrib(nodes, degree_distrib, output_directory = 'plot_fol
   if not os.path.exists(output_directory):
     os.makedirs(output_directory)
 
-  plt.savefig(output_directory + "degree_distrib.png")
+  plt.savefig(output_directory + "/degree_distrib.png")
   plt.show()
 
 
-def show_length_of_paths(sorted_counter, output_directory='plot_folder/'):
+def show_length_of_paths(sorted_counter, output_directory='plot_folder'):
 
   new_dict = {str(key): value for key, value in sorted_counter.items()}
   new_dict["path\nnot\nfound"] = new_dict.pop('0')
@@ -73,12 +73,12 @@ def show_length_of_paths(sorted_counter, output_directory='plot_folder/'):
   if not os.path.exists(output_directory):
     os.makedirs(output_directory)
 
-  plt.savefig(output_directory + "length_of_paths.png")
+  plt.savefig(output_directory + "/length_of_paths.png")
   plt.show()
 
 
 
-def deg_separation_plot(data, total_nodes, output_directory = 'plot_folder/'):
+def deg_separation_plot(data, total_nodes, output_directory = 'plot_folder'):
 
   table_data = []
 
@@ -107,7 +107,7 @@ def deg_separation_plot(data, total_nodes, output_directory = 'plot_folder/'):
   if not os.path.exists(output_directory):
     os.makedirs(output_directory)
 
-  plt.savefig(output_directory + "degrees_separation.png")
+  plt.savefig(output_directory + "/degrees_separation.png")
   plt.show()
 
   return data, this_table
