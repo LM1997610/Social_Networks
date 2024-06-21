@@ -92,3 +92,27 @@ def deg_separation_plot(data, total_nodes, output_dir='plot_folder/'):
 
   return data, this_table
 
+
+
+def dead_end_plot(G, dead_node, names):
+
+  predecessors = list(G.predecessors(dead_node)
+
+  subgraph_nodes = predecessors + [dead_node]
+  H = G.subgraph(subgraph_nodes)
+
+  pos = nx.shell_layout(H) 
+
+  node_colors = ['#e6b800' if node == dead_node else '#0099cc' for node in H.nodes()]
+  labels={node: names[node] for node in H.nodes()}
+
+  plt.figure(figsize=(9, 4))
+  nx.draw_networkx_nodes(H, node_size=350, alpha = 0.75, node_color= node_colors, pos = pos)
+  nx.draw_networkx_edges(H, edge_color = "black", alpha = 0.35, pos=pos )
+
+  for node, (x, y) in pos.items():
+    plt.text(x, y + 0.05, labels[node], fontsize=12, color='black', ha='center')
+
+  plt.axis('off')
+  plt.show()
+  
