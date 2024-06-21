@@ -92,6 +92,7 @@ def deg_separation_plot(data, total_nodes, output_directory = 'plot_folder'):
 
   headers = ["Node"] + [f"Hop {i}" for i in range(len(value_list))]
   this_table = tabulate(table_data, headers=headers, tablefmt="pretty")
+  unreachable = 100 - float(percentages[-1].split()[0])
 
   plt.gca().spines['right'].set_color('none')
   plt.gca().spines['top'].set_color('none')
@@ -111,7 +112,7 @@ def deg_separation_plot(data, total_nodes, output_directory = 'plot_folder'):
   plt.savefig(output_directory + "/degrees_separation.png")
   plt.show()
 
-  return data, this_table
+  return data, this_table, round(unreachable, 4)
 
 
 
