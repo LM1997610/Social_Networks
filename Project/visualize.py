@@ -1,10 +1,9 @@
 
 import os
-from tabulate import tabulate
-
+import networkx as nx
 import matplotlib.pyplot as plt
 
-
+from tabulate import tabulate
 
 
 def visualize_degree_distrib(nodes, degree_distrib, output_dir='plot_folder/'):
