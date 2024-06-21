@@ -1,10 +1,13 @@
 
 import os
+
 import numpy as np
 import networkx as nx
 import matplotlib.pyplot as plt
 
 from tabulate import tabulate
+from collections import Counter
+
 
 def topic_distrib_plot(counted_topics, output_directory='plot_folder'):
 
