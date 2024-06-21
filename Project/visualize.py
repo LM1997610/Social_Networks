@@ -69,7 +69,7 @@ def do_a_plot(data, total_nodes, output_dir='plot_folder/'):
 
     plt.plot(range(len(value_list)), value_list, alpha = 0.65, label=key)
 
-  headers = ["Node"] + [f"Hop {i+1}" for i in range(len(result))]
+  headers = ["Node"] + [f"Hop {i+1}" for i in range(len(value_list))]
   this_table = tabulate(table_data, headers=headers, tablefmt="pretty")
 
   plt.gca().spines['right'].set_color('none')
