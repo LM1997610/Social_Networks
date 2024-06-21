@@ -96,7 +96,7 @@ def deg_separation_plot(data, total_nodes, output_dir='plot_folder/'):
 
 def dead_end_plot(G, dead_node, names):
 
-  predecessors = list(G.predecessors(dead_node)
+  predecessors = list(G.predecessors(dead_node))
 
   subgraph_nodes = predecessors + [dead_node]
   H = G.subgraph(subgraph_nodes)
