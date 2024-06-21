@@ -63,7 +63,7 @@ def show_length_of_paths(sorted_counter, output_directory='plot_folder'):
   print()
 
   plt.figure(figsize=(6, 4))
-  plt.bar(keys, values)
+  plt.bar(keys, values, color = "#34c7ea")
 
   plt.grid(linestyle='--', alpha=0.7))
   plt.xticks(keys)
