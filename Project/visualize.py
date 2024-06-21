@@ -148,7 +148,7 @@ def dead_end_plot(G, dead_node, names):
   plt.show()
 
 
-def show_subnet(H, node_labels, output_directory='plot_folder'):
+def show_subnet(H, node_labels, topic_key, show=False, output_directory='plot_folder/community'):
 
     palette = plt.get_cmap('tab20', len(set(node_labels.values())))
     colors = [palette(i) for i in range(len(set(node_labels.values())))]
@@ -169,11 +169,12 @@ def show_subnet(H, node_labels, output_directory='plot_folder'):
               loc='upper left', bbox_to_anchor=(0.95,0.80), prop={'size': 6.2})
 
 
-    plt.title("'Technology' Articles from Wikipedia")
+    plt.title(f"'{topic_key}' Articles from Wikipedia")
     plt.axis('off')
 
     if not os.path.exists(output_directory):
       os.makedirs(output_directory)
 
-    plt.savefig(output_directory + "/sub_network.png")
-    plt.show()
+    plt.savefig(output_directory + f'/{topic_key}_network.png')
+    if show: plt.show()
+    else: plt.close()
