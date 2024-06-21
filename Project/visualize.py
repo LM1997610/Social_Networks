@@ -24,7 +24,7 @@ def visualize_degree_distrib(nodes, degree_distrib, output_dir='plot_folder/'):
   ax2.grid()
   
   plt.subplots_adjust(wspace=0.3)
-  plt.tight_layout()
+  #plt.tight_layout()
 
   if not os.path.exists(output_dir):
     os.makedirs(output_dir)
