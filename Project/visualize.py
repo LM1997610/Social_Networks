@@ -58,7 +58,7 @@ def show_length_of_paths(sorted_counter, output_dir='plot_folder/'):
 
 
 
-def do_a_plot(data, total_nodes, output_dir='plot_folder/'):
+def deg_separation_plot(data, total_nodes, output_dir='plot_folder/'):
 
   table_data = []
 
