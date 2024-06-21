@@ -53,22 +53,23 @@ def visualize_degree_distrib(nodes, degree_distrib, output_directory = 'plot_fol
   plt.savefig(output_directory + "/degree_distrib.png")
   plt.show()
 
-
 def show_length_of_paths(sorted_counter, output_directory='plot_folder'):
 
   new_dict = {str(key): value for key, value in sorted_counter.items()}
-  new_dict["path\nnot\nfound"] = new_dict.pop('0')
+  new_dict["Not\nExist"] = new_dict.pop('0')
   
   keys = list(new_dict.keys())
   values = list(new_dict.values())
+  print()
 
+  plt.figure(figsize=(6, 4))
   plt.bar(keys, values)
 
   plt.grid()
   plt.xticks(keys)
   plt.xlabel("Length of Paths \n", fontsize= 14)
   plt.ylabel("N. of Articles \n", fontsize= 14)
-  plt.bar(keys[-1], values[-1], color='orange')
+  plt.bar(keys[-1], values[-1], color='#b30000')
   plt.tight_layout()
 
   if not os.path.exists(output_directory):
@@ -77,7 +78,12 @@ def show_length_of_paths(sorted_counter, output_directory='plot_folder'):
   plt.savefig(output_directory + "/length_of_paths.png")
   plt.show()
 
+  print(); print()
+  show_data = [  ["Lenght of path:"] + [str(x) if x!=0 else "Not Exist" for x in sorted_counter.keys()],
+                 ["Nodes (couples):", *[str(sorted_counter[i]) for i in range(len(sorted_counter))] ]]
 
+  t = tabulate(show_data, headers="firstrow",tablefmt="fancy_grid", numalign="center")
+  print(t)
 
 def deg_separation_plot(data, total_nodes, output_directory = 'plot_folder'):
 
