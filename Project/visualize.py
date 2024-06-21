@@ -65,7 +65,7 @@ def show_length_of_paths(sorted_counter, output_directory='plot_folder'):
   plt.figure(figsize=(6, 4))
   plt.bar(keys, values, color = "#34c7ea")
 
-  plt.grid(linestyle='--', alpha=0.7))
+  plt.grid(linestyle='--', alpha=0.7)
   plt.xticks(keys)
   plt.xlabel("Length of Paths \n", fontsize= 14)
   plt.ylabel("N. of Articles \n", fontsize= 14)
