@@ -144,22 +144,23 @@ def dead_end_plot(G, dead_node, names):
   plt.axis('off')
   plt.show()
 
+
 def show_subnet(H, node_labels, output_directory='plot_folder'):
 
     palette = plt.get_cmap('tab20', len(set(node_labels.values())))
     colors = [palette(i) for i in range(len(set(node_labels.values())))]
 
-    color_match = {cat: colors[i] for i, cat in enumerate(set(node_labels.values()))}
+    color_match = {node: colors[i] for i, node in enumerate(set(node_labels.values()))}
     node_colors = {k:color_match[value] for k, value in node_labels.items() }
-    
+  
     pos = nx.spring_layout(H)
 
     plt.figure(figsize=(10, 5))
 
     nx.draw_networkx_nodes(H, node_size=10, alpha = 0.65, node_color=list(node_colors.values()), pos = pos)
     nx.draw_networkx_edges(H, edge_color = "gray", alpha=0.1 ,  pos=pos)
-
-    legend_labels = {cat: color for i, (cat, color) in enumerate(color_match.items())}
+                     
+    legend_labels = {cat+ ": "+ str(Counter(node_labels.values())[cat]): color for i, (cat, color) in enumerate(color_match.items())}
 
     plt.legend(handles=[plt.Line2D([], [], color=color, marker='o', linestyle='', markersize=5, label=cat) for cat, color in legend_labels.items()], 
               loc='upper left', bbox_to_anchor=(0.95,0.80), prop={'size': 6.2})
