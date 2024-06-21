@@ -64,7 +64,7 @@ def do_a_plot(data, total_nodes, output_dir='plot_folder/'):
 
   for key, value_list in data.items():
     
-    percentages = [str((round((size / total_nodes) * 100, 2)))+" %" for size in value_list]
+    percentages = [str((round((size / total_nodes) * 100, 5)))+" %" for size in value_list]
     table_data.append([key] + percentages)
 
     plt.plot(range(len(value_list)), value_list, alpha = 0.65, label=key)
