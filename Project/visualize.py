@@ -44,8 +44,8 @@ def visualize_degree_distrib(nodes, degree_distrib, output_directory = 'plot_fol
   ax2.set_xscale("log"); ax2.set_yscale("log")
   ax2.grid()
   
-  plt.subplots_adjust(wspace=0.3)
-  #plt.tight_layout()
+  # plt.subplots_adjust(wspace=0.3)
+  plt.tight_layout()
 
   if not os.path.exists(output_directory):
     os.makedirs(output_directory)
