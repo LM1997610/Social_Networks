@@ -5,8 +5,29 @@ import matplotlib.pyplot as plt
 
 from tabulate import tabulate
 
+def topic_distrib_plot(counted_topics, output_directory='plot_folder/'):
 
-def visualize_degree_distrib(nodes, degree_distrib, output_dir='plot_folder/'):
+  sorted_data = dict(sorted(counted_topics.items(), key=lambda item: item[1]))
+
+  plt.figure(figsize=(8, 4))
+
+  colors = plt.cm.viridis(np.linspace(0, 1, len(sorted_data)))
+  colors = plt.cm.rainbow(np.linspace(0, 1, len(sorted_data)))  # Utilizzare la colormap rainbow
+
+  plt.barh(list(sorted_data.keys()), list(sorted_data.values()), color=colors)
+
+  plt.grid(axis='x', linestyle='--', alpha=0.7)
+  plt.title("\n Wikipedia Articles by Topics \n", fontsize=14)
+  plt.xlabel("\n N. of Articles \n", fontsize= 12)
+  plt.tight_layout()
+
+  if not os.path.exists(output_directory):
+    os.makedirs(output_directory)
+
+  plt.savefig(output_directory + "topic_distrib.png")
+  plt.show()
+  
+def visualize_degree_distrib(nodes, degree_distrib, output_directory = 'plot_folder/'):
   fig, (ax1, ax2) = plt.subplots(1, 2,figsize=(12, 3))
   
   ax1.plot(nodes, degree_distrib, '-', linewidth=2.5)
@@ -25,14 +46,14 @@ def visualize_degree_distrib(nodes, degree_distrib, output_dir='plot_folder/'):
   plt.subplots_adjust(wspace=0.3)
   #plt.tight_layout()
 
-  if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
+  if not os.path.exists(output_directory):
+    os.makedirs(output_directory)
 
-  plt.savefig(output_dir+"degree_distrib.png")
+  plt.savefig(output_directory + "degree_distrib.png")
   plt.show()
 
 
-def show_length_of_paths(sorted_counter, output_dir='plot_folder/'):
+def show_length_of_paths(sorted_counter, output_directory='plot_folder/'):
 
   new_dict = {str(key): value for key, value in sorted_counter.items()}
   new_dict["path\nnot\nfound"] = new_dict.pop('0')
@@ -49,15 +70,15 @@ def show_length_of_paths(sorted_counter, output_dir='plot_folder/'):
   plt.bar(keys[-1], values[-1], color='orange')
   plt.tight_layout()
 
-  if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
+  if not os.path.exists(output_directory):
+    os.makedirs(output_directory)
 
-  plt.savefig(output_dir+"length_of_paths.png")
+  plt.savefig(output_directory + "length_of_paths.png")
   plt.show()
 
 
 
-def deg_separation_plot(data, total_nodes, output_dir='plot_folder/'):
+def deg_separation_plot(data, total_nodes, output_directory = 'plot_folder/'):
 
   table_data = []
 
@@ -83,10 +104,10 @@ def deg_separation_plot(data, total_nodes, output_dir='plot_folder/'):
   plt.legend(loc ="lower right", prop={'size': 9})
   plt.tight_layout()
 
-  if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
+  if not os.path.exists(output_directory):
+    os.makedirs(output_directory)
 
-  plt.savefig(output_dir+"degrees_separation.png")
+  plt.savefig(output_directory + "degrees_separation.png")
   plt.show()
 
   return data, this_table
