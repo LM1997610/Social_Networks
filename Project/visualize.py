@@ -125,7 +125,7 @@ def deg_separation_plot(data, total_nodes, output_directory = 'plot_folder'):
 
 
 
-def dead_end_plot(G, dead_node, names):
+def dead_end_plot(G, dead_node, names, output_directory='plot_folder'):
 
   predecessors = list(G.predecessors(dead_node))
 
@@ -145,7 +145,13 @@ def dead_end_plot(G, dead_node, names):
     plt.text(x, y + 0.05, labels[node], fontsize=12, color='black', ha='center')
 
   plt.axis('off')
+
+  if not os.path.exists(output_directory):
+    os.makedirs(output_directory)
+
+  plt.savefig(output_directory + "/dead_end_node.png")
   plt.show()
+  #plt.show()
 
 
 def show_subnet(H, node_labels, topic_key, show=False, output_directory='plot_folder/community'):
