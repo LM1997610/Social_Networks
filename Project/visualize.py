@@ -202,31 +202,28 @@ def show_subnet(H, node_labels, topic_key, show=False, output_directory='plot_fo
       print(f'Subclasses: {len(set(node_labels.values()))}')
 
 
+def in_out_plot(deg, in_deg, out_deg, g_name, output_directory='plot_folder'):
+    fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 
-def in_out_plot(in_deg, out_deg, g_name, output_directory='plot_folder'):
+    fig.suptitle(f"'{g_name}' Degree Distribution \n", fontsize=18)
 
-  fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
+    degree_items = [deg.items(), in_deg.items(), out_deg.items()]
 
+    titles = ["Tot-Degree", "In-Degree", "Out-Degree"]
+    colors = ["blue", "green", "red"]
 
-  fig.suptitle(f"'{g_name}' Degree Distribution", fontsize=15)
+    for i, (ax, element, title, color) in enumerate(zip(axes, degree_items, titles, colors)):
+        keys, values = zip(*element)
+        ax.bar(keys, values, color=color)
+        ax.set_xlabel(f"\n {title} \n", fontsize=14)
+        if i == 0: 
+          ax.set_ylabel("N. of Articles \n", fontsize=14)
+        ax.grid(True, linestyle='--', alpha=0.70)
 
-  ax1.bar(in_deg.keys(), in_deg.values(),  color="green")
+    plt.tight_layout()
 
-  ax1.set_xlabel("\n In-Degree \n", fontsize= 14)
-  ax1.set_ylabel("N. of Articles\n", fontsize= 13)
-  ax1.grid('--', alpha=0.70)
+    if not os.path.exists(output_directory):
+        os.makedirs(output_directory)
 
-  ax2.bar(out_deg.keys(), out_deg.values(), color="red")
-
-  ax2.set_xlabel("\n Out-Degree \n", fontsize= 14)
-  #ax2.set_ylabel("N. of Articles", fontsize= 13)
-  ax2.grid('--', alpha=0.70)
-
-  #plt.subplots_adjust(wspace=0.4)
-  plt.tight_layout()
-
-  if not os.path.exists(output_directory):
-    os.makedirs(output_directory)
-
-  plt.savefig(output_directory + f'/in_out_deg_{g_name.lower()}.png')
-  plt.show()
+    plt.savefig(os.path.join(output_directory, f'in_out_deg_{g_name.lower()}.png'))
+    plt.show()
