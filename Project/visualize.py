@@ -249,7 +249,7 @@ def show_coomunities(Grafo, partizione, topic_key, output_directory="plot_folder
   colors = plt.cm.tab20(np.linspace(0, 1, len(unique_communities)))
   community_color_map = {community: colors[i] for i, community in enumerate(unique_communities)}
 
-  node_colors = [community_color_map[community_dict[node]] for node in H.nodes()]
+  node_colors = [community_color_map[community_dict[node]] for node in Grafo.nodes()]
 
 
   plt.figure(figsize=(10, 5))
