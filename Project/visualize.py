@@ -187,7 +187,7 @@ def show_subnet(H, node_labels, topic_key, show=False, output_directory='plot_fo
     if not os.path.exists(output_directory):
       os.makedirs(output_directory)
 
-    plt.savefig(output_directory + f'/{topic_key.split()[0]}_network.png')
+    plt.savefig(output_directory + f'/{topic_key.split()[0]}_network.jpg)')
 
     if show: plt.show()
     else: 
