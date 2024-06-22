@@ -239,7 +239,7 @@ def show_coomunities(Grafo, partizione, topic_key, output_directory="plot_folder
   lengths = [len(x) for x in partizione]
 
   community_dict = {}
-  for i, community in enumerate(partition):
+  for i, community in enumerate(partizione):
     for node in community:
         community_dict[node] = i
 
