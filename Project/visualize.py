@@ -166,6 +166,7 @@ def show_subnet(H, node_labels, topic_key, show=False, output_directory='plot_fo
     #print(f'{"["+topic_key.split()[0]:>12}] Nodes: {str(len(list(H.nodes()))):>4} | Edges: {str(len(list(H.edges()))):>5}', end= " | ")
   
     palette = plt.get_cmap('tab20', len(set(node_labels.values())))
+    
     colors = [palette(i) for i in range(len(set(node_labels.values())))]
 
     color_match = {node: colors[i] for i, node in enumerate(set(node_labels.values()))}
@@ -177,8 +178,11 @@ def show_subnet(H, node_labels, topic_key, show=False, output_directory='plot_fo
 
     plt.figure(figsize=(10, 5))
 
-    nx.draw_networkx_nodes(H, node_size=10, alpha = 0.65, node_color=list(node_colors.values()), pos = pos)
-    nx.draw_networkx_edges(H, edge_color = "gray", alpha=0.1 ,  pos=pos)
+    #nx.draw_networkx_nodes(H, node_size=10, alpha = 0.65, node_color=list(node_colors.values()), pos = pos)
+    #nx.draw_networkx_edges(H, edge_color = "gray", alpha=0.1 ,  pos=pos)
+
+    nx.draw_networkx_nodes(H, pos, node_color = list(node_colors.values()), node_size=25, alpha=0.70)
+    nx.draw_networkx_edges(H, pos, edge_color = "gray", alpha=0.5)
                      
     legend_labels = {cat+ ": "+ str(Counter(node_labels.values())[cat]): color for i, (cat, color) in enumerate(color_match.items())}
 
@@ -193,13 +197,14 @@ def show_subnet(H, node_labels, topic_key, show=False, output_directory='plot_fo
     if not os.path.exists(output_directory):
       os.makedirs(output_directory)
 
-    plt.savefig(output_directory + f'/{topic_key.split()[0]}_network.png')
+    plt.savefig(output_directory + f'/{topic_key.split()[0].lower()}_network.png')
 
     if show: plt.show()
     else: 
       plt.close()
       print(f'{"["+topic_key.split()[0]:>12}] Nodes: {str(len(list(H.nodes()))):>4} | Edges: {str(len(list(H.edges()))):>5}', end= " | ")
       print(f'Subclasses: {len(set(node_labels.values()))}')
+
 
 
 def in_out_plot(deg, in_deg, out_deg, g_name, output_directory='plot_folder'):
@@ -227,3 +232,43 @@ def in_out_plot(deg, in_deg, out_deg, g_name, output_directory='plot_folder'):
 
     plt.savefig(os.path.join(output_directory, f'in_out_deg_{g_name.lower()}.png'))
     plt.show()
+
+
+def show_coomunities(Grafo, partizione, topic_key, output_directory="plot_folder/louvain"):
+
+  lengths = [len(x) for x in partizione]
+
+  community_dict = {}
+  for i, community in enumerate(partition):
+    for node in community:
+        community_dict[node] = i
+
+  pos = nx.spring_layout(H)
+
+  unique_communities = list(set(community_dict.values()))
+  colors = plt.cm.tab20(np.linspace(0, 1, len(unique_communities)))
+  community_color_map = {community: colors[i] for i, community in enumerate(unique_communities)}
+
+  node_colors = [community_color_map[community_dict[node]] for node in H.nodes()]
+
+
+  plt.figure(figsize=(10, 5))
+
+  nx.draw_networkx_nodes(H, pos, node_color=node_colors, node_size=50, alpha=0.8)
+  nx.draw_networkx_edges(H, pos, alpha=0.3, edge_color="gray")
+
+  handles = [plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color, markersize=10) for color in colors]
+
+  
+  labels = [f"Community {i}: "+str(lengths[i]) for i in unique_communities]
+  plt.legend(handles, labels, loc='best')
+
+  plt.title(f"Louvain Community Detection on '{topic_key}'")
+  plt.axis('off')
+
+  if not os.path.exists(output_directory):
+      os.makedirs(output_directory)
+
+  plt.savefig(output_directory + f'/louvain_{topic_key.split()[0].lower()}.png')
+
+  plt.show()
