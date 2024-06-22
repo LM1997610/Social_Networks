@@ -243,7 +243,7 @@ def show_coomunities(Grafo, partizione, topic_key, output_directory="plot_folder
     for node in community:
         community_dict[node] = i
 
-  pos = nx.spring_layout(H)
+  pos = nx.spring_layout(Grafo)
 
   unique_communities = list(set(community_dict.values()))
   colors = plt.cm.tab20(np.linspace(0, 1, len(unique_communities)))
@@ -254,8 +254,8 @@ def show_coomunities(Grafo, partizione, topic_key, output_directory="plot_folder
 
   plt.figure(figsize=(10, 5))
 
-  nx.draw_networkx_nodes(H, pos, node_color=node_colors, node_size=50, alpha=0.8)
-  nx.draw_networkx_edges(H, pos, alpha=0.3, edge_color="gray")
+  nx.draw_networkx_nodes(Grafo, pos, node_color=node_colors, node_size=50, alpha=0.8)
+  nx.draw_networkx_edges(Grafo, pos, alpha=0.3, edge_color="gray")
 
   handles = [plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color, markersize=10) for color in colors]
 
