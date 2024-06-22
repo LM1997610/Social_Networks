@@ -200,3 +200,33 @@ def show_subnet(H, node_labels, topic_key, show=False, output_directory='plot_fo
       plt.close()
       print(f'{"["+topic_key.split()[0]:>12}] Nodes: {str(len(list(H.nodes()))):>4} | Edges: {str(len(list(H.edges()))):>5}', end= " | ")
       print(f'Subclasses: {len(set(node_labels.values()))}')
+
+
+
+def in_out_plot(in_deg, out_deg, g_name, output_directory='plot_folder'):
+
+  fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
+
+
+  fig.suptitle(f"'{g_name}' Degree Distribution", fontsize=15)
+
+  ax1.bar(in_deg.keys(), in_deg.values(),  color="green")
+
+  ax1.set_xlabel("\n In-Degree \n", fontsize= 14)
+  ax1.set_ylabel("N. of Articles\n", fontsize= 13)
+  ax1.grid('--', alpha=0.70)
+
+  ax2.bar(out_deg.keys(), out_deg.values(), color="red")
+
+  ax2.set_xlabel("\n Out-Degree \n", fontsize= 14)
+  #ax2.set_ylabel("N. of Articles", fontsize= 13)
+  ax2.grid('--', alpha=0.70)
+
+  #plt.subplots_adjust(wspace=0.4)
+  plt.tight_layout()
+
+  if not os.path.exists(output_directory):
+    os.makedirs(output_directory)
+
+  plt.savefig(output_directory + f'/in_out_deg_{g_name.lower()}.png')
+  plt.show()
