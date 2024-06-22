@@ -157,16 +157,15 @@ def show_subnet(H, node_labels, topic_key, show=False, output_directory='plot_fo
 
       node_labels = {k: v for k, v in node_labels.items() if k not in isolated_nodes}
 
-    print(f'{"["+topic_key.split()[0]:>12}] Nodes: {str(len(list(H.nodes()))):>4} | Edges: {str(len(list(H.edges()))):>5}', end= " | ")
-
-
+    #print(f'{"["+topic_key.split()[0]:>12}] Nodes: {str(len(list(H.nodes()))):>4} | Edges: {str(len(list(H.edges()))):>5}', end= " | ")
+  
     palette = plt.get_cmap('tab20', len(set(node_labels.values())))
     colors = [palette(i) for i in range(len(set(node_labels.values())))]
 
     color_match = {node: colors[i] for i, node in enumerate(set(node_labels.values()))}
     node_colors = {k:color_match[value] for k, value in node_labels.items() }
 
-    print(f'Subclasses: {len(set(node_labels.values()))}')
+    #print(f'Subclasses: {len(set(node_labels.values()))}')
   
     pos = nx.spring_layout(H)
 
@@ -191,4 +190,8 @@ def show_subnet(H, node_labels, topic_key, show=False, output_directory='plot_fo
     plt.savefig(output_directory + f'/{topic_key.split()[0]}_network.png')
 
     if show: plt.show()
-    else: plt.close()
+    else: 
+      plt.close()
+      print(f'{"["+topic_key.split()[0]:>12}] Nodes: {str(len(list(H.nodes()))):>4} | Edges: {str(len(list(H.edges()))):>5}', end= " | ")
+      print(f'Subclasses: {len(set(node_labels.values()))}')
+      
