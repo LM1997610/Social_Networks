@@ -232,7 +232,9 @@ def in_out_plot(deg, in_deg, out_deg, g_name, output_directory='plot_folder'):
     plt.savefig(os.path.join(output_directory, f'in_out_deg_{g_name.lower()}.png'))
     plt.show()
 
-def show_coomunities(Grafo, partizione, topic_key, pos, show=False, output_directory="plot_folder/louvain"):
+def show_coomunities(graph_handler, partizione, show=False, output_directory="plot_folder/louvain"):
+
+  this_graph = graph_handler.subgraph.to_undirected()
 
   lengths = [len(x) for x in partizione]
 
@@ -241,34 +243,30 @@ def show_coomunities(Grafo, partizione, topic_key, pos, show=False, output_direc
     for node in community:
         community_dict[node] = i
 
-  #pos = nx.spring_layout(Grafo)
-
   unique_communities = list(set(community_dict.values()))
+
   colors = plt.cm.tab20(np.linspace(0, 1, len(unique_communities)))
   community_color_map = {community: colors[i] for i, community in enumerate(unique_communities)}
 
-  node_colors = [community_color_map[community_dict[node]] for node in Grafo.nodes()]
-
+  node_colors = [community_color_map[community_dict[node]] for node in graph_handler.sub_nodes]
 
   plt.figure(figsize=(10, 5))
 
-  nx.draw_networkx_nodes(Grafo, pos, node_color=node_colors, node_size=50, alpha=0.8)
-  nx.draw_networkx_edges(Grafo, pos, alpha=0.3, edge_color="gray")
+  nx.draw_networkx_nodes(this_graph, graph_handler.pos, node_color=node_colors, node_size=50, alpha=0.8)
+  nx.draw_networkx_edges(this_graph, graph_handler.pos, alpha=0.3, edge_color="gray")
 
   handles = [plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color, markersize=10) for color in colors]
-
   
   labels = [f"Community {i}: "+str(lengths[i]) for i in unique_communities]
   plt.legend(handles, labels, loc='best')
 
-  plt.title(f"Louvain Community Detection on '{topic_key}'")
+  plt.title(f"Louvain Community Detection on '{graph_handler.topic_name}'")
   plt.axis('off')
 
   if not os.path.exists(output_directory):
       os.makedirs(output_directory)
 
-  plt.savefig(output_directory + f'/louvain_{topic_key.split()[0].lower()}.png')
+  plt.savefig(output_directory + f'/louvain_{graph_handler.topic_name.lower()}.png')
 
   if show: plt.show()
   else: plt.close()
-  
