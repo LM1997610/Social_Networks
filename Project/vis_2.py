@@ -4,7 +4,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 
-def show_subnet(my_class, show, output_directory='plot_folder/community', ):
+def show_subnet(my_class, show, output_directory='plot_folder/community'):
 
     this_graph = my_class.subgraph.to_undirected()
 
