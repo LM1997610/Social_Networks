@@ -1,6 +1,7 @@
 
-
+import os 
 import matplotlib.pyplot as plt
+
 
 def show_subnet(my_class, show, output_directory='plot_folder/community', ):
 
