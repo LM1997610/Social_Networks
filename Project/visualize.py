@@ -234,7 +234,7 @@ def in_out_plot(deg, in_deg, out_deg, g_name, output_directory='plot_folder'):
     plt.show()
 
 
-def show_coomunities(Grafo, partizione, topic_key, output_directory="plot_folder/louvain"):
+def show_coomunities(Grafo, partizione, topic_key, show=False, output_directory="plot_folder/louvain"):
 
   lengths = [len(x) for x in partizione]
 
@@ -271,4 +271,6 @@ def show_coomunities(Grafo, partizione, topic_key, output_directory="plot_folder
 
   plt.savefig(output_directory + f'/louvain_{topic_key.split()[0].lower()}.png')
 
-  plt.show()
+  if show: plt.show()
+  else: plt.close()
+  
