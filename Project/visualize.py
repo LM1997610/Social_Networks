@@ -154,7 +154,7 @@ def dead_end_plot(G, dead_node, names, output_directory='plot_folder'):
   #plt.show()
 
 
-def show_subnet(H, node_labels, topic_key, show=False, output_directory='plot_folder/community'):
+def show_subnet(H, node_labels, topic_key, pos, show=False, output_directory='plot_folder/community', ):
 
     isolated_nodes = [node for node in H.nodes if H.degree(node) == 0]
     
@@ -174,7 +174,7 @@ def show_subnet(H, node_labels, topic_key, show=False, output_directory='plot_fo
 
     #print(f'Subclasses: {len(set(node_labels.values()))}')
   
-    pos = nx.spring_layout(H)
+    #pos = nx.spring_layout(H)
 
     plt.figure(figsize=(10, 5))
 
@@ -206,7 +206,6 @@ def show_subnet(H, node_labels, topic_key, show=False, output_directory='plot_fo
       print(f'Subclasses: {len(set(node_labels.values()))}')
 
 
-
 def in_out_plot(deg, in_deg, out_deg, g_name, output_directory='plot_folder'):
     fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 
@@ -233,8 +232,7 @@ def in_out_plot(deg, in_deg, out_deg, g_name, output_directory='plot_folder'):
     plt.savefig(os.path.join(output_directory, f'in_out_deg_{g_name.lower()}.png'))
     plt.show()
 
-
-def show_coomunities(Grafo, partizione, topic_key, show=False, output_directory="plot_folder/louvain"):
+def show_coomunities(Grafo, partizione, topic_key, pos, show=False, output_directory="plot_folder/louvain"):
 
   lengths = [len(x) for x in partizione]
 
@@ -243,7 +241,7 @@ def show_coomunities(Grafo, partizione, topic_key, show=False, output_directory=
     for node in community:
         community_dict[node] = i
 
-  pos = nx.spring_layout(Grafo)
+  #pos = nx.spring_layout(Grafo)
 
   unique_communities = list(set(community_dict.values()))
   colors = plt.cm.tab20(np.linspace(0, 1, len(unique_communities)))
