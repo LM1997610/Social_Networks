@@ -1,9 +1,17 @@
+
 import os 
 
+import numpy as np
 import networkx as nx
 
 from tqdm import tqdm
 from collections import Counter
+
+
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+import matplotlib.cm as cm
+
 
 class SubgraphBuilder:
 
@@ -90,7 +98,11 @@ class SubgraphBuilder:
 
     def get_top_centralities(self, centrality_func,  wikivitals_names, top_n=3):
 
-      centrality = centrality_func(self.subgraph)
+      centrality = centrality_func(self.subgraph.to_undirected())
+
+      ##
+      self.do_new_plot(centrality.values(), centrality_func.name)
+      ##
       top_centrality = dict(sorted(centrality.items(), key=lambda item: item[1], reverse=True)[:top_n])
       article_names = self.get_articles_names(top_centrality, wikivitals_names)
       article_names = {k:round(v, 3) for k,v in article_names.items()}
@@ -105,4 +117,31 @@ class SubgraphBuilder:
         self.top_articles[nx_function.name] = self.get_top_centralities(nx_function, wikivitals_names)
 
       return self.top_articles
+    
+    def do_new_plot(self, deg_centrality_values, c_misura, output_directory = "plot_folder/centrality_measures"):
+      
+      cent = np.fromiter(deg_centrality_values, float)
+      sizes = cent / np.max(cent) * 200
+      normalize = mcolors.Normalize(vmin=cent.min(), vmax=cent.max())
+      colormap = cm.viridis
+
+      scalarmappaple = cm.ScalarMappable(norm=normalize, cmap=colormap)
+      scalarmappaple.set_array(cent)
+
+      fig = plt.subplots(figsize=(12, 8))
+
+      plt.colorbar(scalarmappaple)
+      
+      nx.draw_networkx_nodes(self.subgraph.to_undirected(), self.pos, node_size=sizes, node_color=sizes, alpha=0.7)
+      nx.draw_networkx_edges(self.subgraph.to_undirected(), self.pos, edge_color='gray', alpha=0.3)
+
+      plt.title(f"{self.topic_name} Graph based on {c_misura}")
+      plt.axis('off')
+      
+      if not os.path.exists(output_directory):
+        os.makedirs(output_directory)
+
+      plt.savefig(output_directory + f'/{self.topic_name.lower()}_{c_misura.split("_")[0]}.png')
+      plt.close()
+    
     
