@@ -22,9 +22,9 @@ class SubgraphBuilder:
         self.n_of_subclass = len(set(self.node_labels.values()))
         self.topic_count = dict(Counter(self.node_labels.values()))
 
-        self.info = (self.topic_name, self.n_of_nodes, 
-                    self.n_of_edges, self.n_of_subclass, 
-                    self.n_of_isolated_nodes,self.n_connected_components)
+        self.info = ("["+self.topic_name+"]", self.n_of_nodes, 
+                      self.n_of_edges, self.n_of_subclass, 
+                      self.n_of_isolated_nodes,self.n_connected_components)
 
     def build_subgraph(self, main_graph, wikivitals_labels):
 
