@@ -29,6 +29,8 @@ class SubgraphBuilder:
         self.n_of_subclass = len(set(self.node_labels.values()))
         self.topic_count = dict(Counter(self.node_labels.values()))
 
+        self.avg_clustering = round(nx.average_clustering(self.subgraph.to_undirected()), 3)
+        
         self.info = ("["+self.topic_name+"]", self.n_of_nodes, 
                       self.n_of_edges, self.n_of_subclass, 
                       self.n_of_isolated_nodes,self.n_connected_components)
