@@ -12,7 +12,6 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import matplotlib.cm as cm
 
-
 class SubgraphBuilder:
 
     def __init__(self, main_graph, topic_name, label_id_diz, wikivitals_labels, wikivitals_labels_hierarchy, wikivitals_names_labels_hierarchy):
@@ -117,6 +116,38 @@ class SubgraphBuilder:
         self.top_articles[nx_function.name] = self.get_top_centralities(nx_function, wikivitals_names)
 
       return self.top_articles
+
+    def find_hubs(self, percentile = 95):
+
+      degrees = dict(self.subgraph.degree())
+
+      degree_values = np.array(list(degrees.values()))
+      threshold = np.percentile(degree_values, percentile)
+
+      self.hubs = {node: degree for node, degree in degrees.items() if degree > threshold}
+      return self.hubs
+
+    def visualize_hubs(self, output_directory = 'plot_folder/centrality_measures'):
+
+      this_g = self.subgraph.to_undirected()
+
+      fig = plt.subplots(figsize=(12, 8))
+
+      nx.draw_networkx_nodes(this_g, self.pos, node_size=15, alpha=0.75)
+
+      hub_nodes = list(hubs.keys())
+      nx.draw_networkx_nodes(this_g, self.pos, nodelist=hub_nodes, node_color='#C01818', node_size=50, alpha=0.9)
+
+      nx.draw_networkx_edges(this_g, self.pos, edge_color='gray', alpha=0.3)
+
+      plt.title(f"'{self.topic_name}' Network Hubs", fontsize= 14)
+      plt.axis('off')
+
+      if not os.path.exists(output_directory):
+        os.makedirs(output_directory)
+
+      plt.savefig(output_directory + f'/{self.topic_name.lower()}_hubs.png')
+      plt.close()
     
     def do_new_plot(self, deg_centrality_values, c_misura, output_directory = "plot_folder/centrality_measures"):
       
