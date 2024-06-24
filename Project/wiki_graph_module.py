@@ -135,7 +135,7 @@ class SubgraphBuilder:
 
       nx.draw_networkx_nodes(this_g, self.pos, node_size=15, alpha=0.75)
 
-      hub_nodes = list(hubs.keys())
+      hub_nodes = list(self.hubs.keys())
       nx.draw_networkx_nodes(this_g, self.pos, nodelist=hub_nodes, node_color='#C01818', node_size=50, alpha=0.9)
 
       nx.draw_networkx_edges(this_g, self.pos, edge_color='gray', alpha=0.3)
