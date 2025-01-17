@@ -161,7 +161,7 @@ class SubgraphBuilder:
       scalarmappaple = cm.ScalarMappable(norm=normalize, cmap=colormap)
       scalarmappaple.set_array(cent)
 
-      fig = plt.subplots(figsize=(12, 8))
+      fig, ax = plt.subplots(figsize=(12, 8))
 
       plt.colorbar(scalarmappaple, ax=ax)
       
