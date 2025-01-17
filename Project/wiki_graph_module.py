@@ -163,10 +163,10 @@ class SubgraphBuilder:
 
       fig = plt.subplots(figsize=(12, 8))
 
-      plt.colorbar(scalarmappaple)
+      plt.colorbar(scalarmappaple, ax=ax)
       
-      nx.draw_networkx_nodes(self.subgraph.to_undirected(), self.pos, node_size=sizes, node_color=sizes, alpha=0.7)
-      nx.draw_networkx_edges(self.subgraph.to_undirected(), self.pos, edge_color='gray', alpha=0.3)
+      nx.draw_networkx_nodes(self.subgraph.to_undirected(), self.pos, node_size=sizes, node_color=sizes, alpha=0.7, ax=ax)
+      nx.draw_networkx_edges(self.subgraph.to_undirected(), self.pos, edge_color='gray', alpha=0.3, ax=ax)
 
       plt.title(f"{self.topic_name} Graph based on {c_misura}")
       plt.axis('off')
